@@ -1,45 +1,39 @@
+import React, { useState } from 'react';
+import logo from './logo.svg';
 import './App.css';
-import { useRef } from 'react';
+import { ColorSlider, parseColor } from '@react-spectrum/color'; // Import parseColor
+import { Provider, defaultTheme } from '@adobe/react-spectrum';
 
 function App() {
-  const nextPageRef = useRef(null);
-
-  const scrollToNextPage = () => {
-    nextPageRef.current.scrollIntoView({ behavior: 'smooth' });
-  };
+  // Use parseColor to set an initial color value
+  const [color, setColor] = useState(parseColor('#703a1d'));
 
   return (
-    <div className="App">
-      {/* Video Background Section */}
-      <div className="video-section">
-        {/* Video element */}
-        <video 
-          className="background-video" 
-          src={'bgvideo.mp4'} 
-          autoPlay 
-          loop 
-          muted 
-        />
-        {/* Dark overlay */}
-        <div className="overlay"></div>
+    <Provider theme={defaultTheme}>
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>Edit <code>src/App.js</code> and save to reload.</p>
 
-        {/* Logo */}
-        <div className="content">
-          <img src="logo.svg" alt="Logo" className="logo" />
-        </div>
-        
-        {/* Scroll text and button */}
-        <div className="scroll-container">
-          <p className="scroll-text text-white mb-5">scroll</p>
-          <div className="scroll-down" onClick={scrollToNextPage}></div>
-        </div>
-      </div>
+          {/* Use the ColorSlider */}
+          <ColorSlider
+            value={color}
+            onChange={setColor}
+            channel="lightness"
+            label="Select your skin tone"
+          />
 
-      {/* Next Page Section */}
-      <div ref={nextPageRef} className="next-page">
-        <h2>This is the next page</h2>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </header>
       </div>
-    </div>
+    </Provider>
   );
 }
 
