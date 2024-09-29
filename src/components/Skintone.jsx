@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";  // Import useNavigate
 
 const SkinToneSelector = () => {
-  const [selectedSkinTone, setSelectedSkinTone] = useState(null);
-  const [selectedUndertone, setSelectedUndertone] = useState(null);
+  const [selectedSkinTone, setSelectedSkinTone] = useState(null); // State for skin tone
+  const [selectedUndertone, setSelectedUndertone] = useState(null); // State for undertone
   const navigate = useNavigate();  // Initialize the useNavigate hook
 
+  // Skin tones options
   const skinTones = [
     { id: 1, label: "1", color: "#F4E2D8" },
     { id: 2, label: "2", color: "#E6C3A1" },
@@ -17,6 +18,7 @@ const SkinToneSelector = () => {
     { id: 8, label: "8", color: "#3B1F14" },
   ];
 
+  // Undertones options
   const undertones = [
     { id: "warm", label: "Warm", color: "#E8B566" },
     { id: "olive", label: "Olive", color: "#C4A95F" },
@@ -24,22 +26,30 @@ const SkinToneSelector = () => {
     { id: "cool", label: "Cool", color: "#D1A38D" },
   ];
 
+  // Handle skin tone selection
   const handleSkinToneSelect = (toneId) => {
     setSelectedSkinTone(toneId);
   };
 
+  // Handle undertone selection
   const handleUndertoneSelect = (toneId) => {
     setSelectedUndertone(toneId);
   };
 
+  // Handle search button click
   const handleSearchClick = () => {
-    // Redirect to ProductList after the user selects tones
-    navigate('/product-list', { state: { selectedSkinTone, selectedUndertone } });
+    if (selectedSkinTone && selectedUndertone) {
+      // Redirect to ProductList with both skin tone and undertone passed via state
+      navigate('/product-list', { state: { selectedSkinTone, selectedUndertone } });
+    } else {
+      alert("Please select both a skin tone and undertone before searching.");
+    }
   };
 
   return (
     <div className="flex items-center justify-center h-screen w-screen">
       <div className="flex flex-col items-center space-y-20">
+        {/* Skin Tone Selector */}
         <div className="space-y-6 flex flex-col items-center">
           <h3 className="text-lg">
             How <span className="font-bold text-orange-600">deep</span> is your skin color?
@@ -61,6 +71,8 @@ const SkinToneSelector = () => {
             ))}
           </div>
         </div>
+
+        {/* Undertone Selector */}
         <div className="space-y-6 flex flex-col items-center">
           <h3 className="text-lg">What’s your <span className="font-bold text-orange-600">undertone</span>?</h3>
           <div className="flex justify-center space-x-4">
@@ -81,6 +93,7 @@ const SkinToneSelector = () => {
           </div>
         </div>
 
+        {/* Display Selected Options and Search Button */}
         <div className="mt-6 text-center">
           <p className="text-md">
             Selected Skin Tone: {selectedSkinTone || "None"}

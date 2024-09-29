@@ -1,9 +1,12 @@
-// src/ProductList.js
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom'; // Import useLocation to get the passed state
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 const ProductList = () => {
+  const location = useLocation(); // Get location to access passed state
+  const { selectedSkinTone, selectedUndertone } = location.state || {}; // Extract both skin tone and undertone
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -11,14 +14,19 @@ const ProductList = () => {
     fetch('https://makeup-api.herokuapp.com/api/v1/products.json?product_type=eyeliner')
       .then((response) => response.json())
       .then((data) => {
-        setProducts(data);
+        // Filter products based on the selected skin tone or undertone if needed
+        const filteredProducts = data.filter(product => {
+          // Add custom filtering logic here based on selectedSkinTone or selectedUndertone
+          return true; // Adjust logic as necessary
+        });
+        setProducts(filteredProducts);
         setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching products:', error);
         setLoading(false);
       });
-  }, []);
+  }, [selectedSkinTone, selectedUndertone]); // Dependencies on skin tone and undertone
 
   // Helper function to validate the price
   const validPrice = (price, priceSign) => {
@@ -32,7 +40,7 @@ const ProductList = () => {
         <p>Loading products...</p>
       ) : (
         <div>
-          <h2>Search Results</h2>
+          <h2>Search Results for Skin Tone: {selectedSkinTone}, Undertone: {selectedUndertone}</h2>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
             {products
               .filter((product) => validPrice(product.price, product.price_sign))
