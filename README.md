@@ -23,5 +23,5 @@ Not every makeup product is made for every skintone, and that's okay! With our p
 * ![React][React.js]
 
 
-[product-screenshot]: https://i.imgur.com/3HX5aRd.png
+[product-screenshot]: https://i.imgur.com/w24QGTW.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
