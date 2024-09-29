@@ -12,8 +12,8 @@ ring.register()
 
 const ProductList = () => {
   const location = useLocation(); // Get location to access passed state
-  const { selectedSkinTone } = location.state || {}; // Extract selected skin tone
-
+  const { selectedSkinTone, selectedUndertone } = location.state || {}; // Extract selected skin tone
+  
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [bipocOnly, setBipocOnly] = useState(false); // State for BIPOC checkbox
@@ -40,7 +40,7 @@ const ProductList = () => {
         console.error('Error fetching products:', error);
         setLoading(false);
       });
-  }, [selectedSkinTone, bipocOnly, budgetFriendly]); // Dependency on selectedSkinTone, BIPOC, and budget-friendly checkboxes
+  }, [selectedSkinTone, selectedUndertone, bipocOnly, budgetFriendly]); // Dependency on selectedSkinTone, BIPOC, and budget-friendly checkboxes
 
   // Helper function to validate the price
   const validPrice = (price, priceSign) => {
@@ -113,7 +113,7 @@ const ProductList = () => {
             </div>
           </div>
 
-          <h2 style={{ textAlign: 'center', marginBottom: '20px', fontWeight: 'bold' }}>We Recommend These Products for Your Skintone: {selectedSkinTone}</h2>
+          <h2 style={{ textAlign: 'center', marginBottom: '20px', fontWeight: 'bold' }}>We recommend these products for skintone #{selectedSkinTone} with undertone {selectedUndertone}</h2>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center', position: 'relative' }}>
             {products
               .filter((product) => validPrice(product.price, product.price_sign)) // Keep the existing filter

@@ -5,6 +5,7 @@ const SkinToneSelector = () => {
   const [selectedSkinTone, setSelectedSkinTone] = useState(null); // State for skin tone
   const [instagramHandle, setInstagramHandle] = useState(""); // State for Instagram handle
   const navigate = useNavigate();  // Initialize the useNavigate hook
+  const [selectedUndertone, setSelectedUndertone] = useState(null); // State for undertone
 
   // Skin tones options (replace with image paths)
   const skinTones = [
@@ -20,6 +21,13 @@ const SkinToneSelector = () => {
     { id: 10, label: "10", imgSrc: "/MST Orbs/MST_10.png" }
   ];
 
+  const undertones = [
+    { id: "warm", label: "Warm", color: "#E8B566" },
+    { id: "olive", label: "Olive", color: "#C4A95F" },
+    { id: "neutral", label: "Neutral", color: "#C4A07F" },
+    { id: "cool", label: "Cool", color: "#D1A38D" },
+  ];
+
   // Handle skin tone selection
   const handleSkinToneSelect = (toneId) => {
     setSelectedSkinTone(toneId);
@@ -30,13 +38,17 @@ const SkinToneSelector = () => {
     setInstagramHandle(e.target.value);
   };
 
+  const handleUndertoneSelect = (toneId) => {
+    setSelectedUndertone(toneId);
+  };
+
   // Handle search button click
   const handleSearchClick = () => {
-    if (selectedSkinTone) {
-      // Redirect to ProductList with selected skin tone passed via state
-      navigate('/product-list', { state: { selectedSkinTone } });
+    if (!selectedSkinTone || !selectedUndertone) {
+      alert("Please select both a skin tone and undertone before searching.");
     } else {
-      alert("Please select a skin tone before searching.");
+      // Redirect to ProductList with selected skin tone passed via state
+      navigate('/product-list', { state: { selectedSkinTone, selectedUndertone } });
     }
   };
 
@@ -73,6 +85,27 @@ const SkinToneSelector = () => {
           </div>
         </div>
 
+        {/* Undertone Selector */}
+        <div className="space-y-6 flex flex-col items-center">
+          <h3 className="text-lg">What’s your <span className="font-bold text-orange-600">undertone</span>?</h3>
+          <div className="flex justify-center space-x-4">
+            {undertones.map((tone) => (
+              <div
+                key={tone.id}
+                className={`w-12 h-12 rounded-full cursor-pointer border-2 ${
+                  selectedUndertone === tone.id
+                    ? "border-black"
+                    : "border-transparent"
+                }`}
+                style={{ backgroundColor: tone.color }}
+                onClick={() => handleUndertoneSelect(tone.id)}
+              >
+                <span className="sr-only">{tone.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Instagram Handle Input */}
         <div className="mt-4">
           <label className="block text-md font-medium text-gray-700">
@@ -91,6 +124,9 @@ const SkinToneSelector = () => {
         <div className="mt-6 text-center">
           <p className="text-md">
             Selected Skin Tone: {selectedSkinTone || "None"}
+          </p>
+          <p className="text-md">
+            Selected Undertone: {selectedUndertone || "None"}
           </p>
           <button 
             className="bg-cyan-600 text-yellow-200 rounded-md border-0 cursor-pointer mt-6 
