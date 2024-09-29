@@ -1,0 +1,16 @@
+/* Add this CSS to your stylesheet */
+.loading-container {
+   display: flex;
+   justify-content: center; /* Center horizontally */
+   align-items: center; /* Center vertically */
+   height: 100%; /* Full height of the parent */
+ }
+ 
+ .outer-container {
+   display: flex;
+   flex-direction: column; /* Ensure children stack vertically */
+   justify-content: center; /* Center children vertically */
+   align-items: center; /* Center children horizontally */
+   min-height: 100vh; /* Ensure it takes full viewport height */
+ }
+

@@ -29,7 +29,7 @@ const Homepage = () => {
       <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4">
         <img src="logo.svg" alt="Logo" className="w-2/4" />
         <h2 className="text-white text-2xl font-light">
-          Discover Your Best Look with disGLOW
+          Find Makeup Products Just For You
         </h2>
       </div>
 

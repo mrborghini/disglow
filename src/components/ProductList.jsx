@@ -2,6 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom'; // Import useLocation to get the passed state
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import 'ldrs/ring'
+import { ring } from 'ldrs'
+import './ProductList.css'
+
+ring.register()
+
+
 
 const ProductList = () => {
   const location = useLocation(); // Get location to access passed state
@@ -42,64 +49,75 @@ const ProductList = () => {
   };
 
   return (
-    <div>
-      {/* Pretty checkbox filters for BIPOC businesses and budget-friendly */}
-      <div
-        className="checkbox-filters"
-        style={{
-          marginBottom: '20px',
-          textAlign: 'center',
-          padding: '20px 0',
-          backgroundColor: '#f0f0f0',
-          borderBottom: '2px solid #ddd',
-        }}
-      >
-        <div
-          style={{
-            display: 'inline-block',
-            marginRight: '20px',
-            fontSize: '18px',
-            color: '#333',
-          }}
-        >
-          <input
-            type="checkbox"
-            id="bipoc"
-            checked={bipocOnly}
-            onChange={(e) => setBipocOnly(e.target.checked)} // Toggle BIPOC checkbox
-            style={{ marginRight: '8px', transform: 'scale(1.2)' }} // Scale checkbox for better visibility
-          />
-          <label htmlFor="bipoc">BIPOC businesses only</label>
-        </div>
-
-        <div
-          style={{
-            display: 'inline-block',
-            marginLeft: '20px',
-            fontSize: '18px',
-            color: '#333',
-          }}
-        >
-          <input
-            type="checkbox"
-            id="budget"
-            checked={budgetFriendly}
-            onChange={(e) => setBudgetFriendly(e.target.checked)} // Toggle budget-friendly checkbox
-            style={{ marginRight: '8px', transform: 'scale(1.2)' }} // Scale checkbox for better visibility
-          />
-          <label htmlFor="budget">Budget-friendly options only</label>
-        </div>
-      </div>
-
+    <div className="outer-container"> {/* Add this class to the outer div */}
       {/* Product Cards and Circles */}
       {loading ? (
-        <p>Loading products...</p>
+        <div className="loading-container"> {/* Center the loading ring */}
+          <l-ring
+            size="40"
+            stroke="5"
+            bg-opacity="0"
+            speed="2" 
+            color="white" 
+          ></l-ring>
+        </div>
       ) : (
-        <div style={{ position: 'relative' }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Search Results for Skin Tone: {selectedSkinTone}</h2>
+        <>
+          {/* Pretty checkbox filters for BIPOC businesses and budget-friendly */}
+          <div
+            className="checkbox-filters"
+            style={{
+              marginBottom: '20px',
+              textAlign: 'center',
+              padding: '20px 0',
+              backgroundColor: '#058688',
+              borderBottom: '2px solid #035E60',
+              width: '75%',
+              borderRadius: '10px',
+            }}
+          >
+            <div
+              style={{
+                display: 'inline-block',
+                marginRight: '20px',
+                fontSize: '18px',
+                color: 'white',
+              }}
+            >
+              <input
+                type="checkbox"
+                id="bipoc"
+                checked={bipocOnly}
+                onChange={(e) => setBipocOnly(e.target.checked)} // Toggle BIPOC checkbox
+                style={{ marginRight: '8px', transform: 'scale(1.2)' }} // Scale checkbox for better visibility
+              />
+              <label htmlFor="bipoc">BIPOC Businesses Only</label>
+            </div>
+
+            <div
+              style={{
+                display: 'inline-block',
+                marginLeft: '20px',
+                fontSize: '18px',
+                color: 'white',
+              }}
+            >
+              <input
+                type="checkbox"
+                id="budget"
+                checked={budgetFriendly}
+                onChange={(e) => setBudgetFriendly(e.target.checked)} // Toggle budget-friendly checkbox
+                style={{ marginRight: '8px', transform: 'scale(1.2)' }} // Scale checkbox for better visibility
+              />
+              <label htmlFor="budget">Budget-Friendly Options Only</label>
+            </div>
+          </div>
+
+          <h2 style={{ textAlign: 'center', marginBottom: '20px', fontWeight: 'bold' }}>We Recommend These Products for Your Skintone: {selectedSkinTone}</h2>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center', position: 'relative' }}>
             {products
-              .filter((product) => validPrice(product.price, product.price_sign))
+              .filter((product) => validPrice(product.price, product.price_sign)) // Keep the existing filter
+              .reverse() // Reverse the order of products
               .map((product) => (
                 <Card key={product.id} style={{ 
                   width: '18rem', 
@@ -145,7 +163,7 @@ const ProductList = () => {
                 </Card>
               ))}
           </div>
-        </div>
+        </>
       )}
     </div>
   );

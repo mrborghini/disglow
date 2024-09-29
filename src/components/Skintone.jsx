@@ -41,7 +41,10 @@ const SkinToneSelector = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen w-screen">
+    <div 
+      className="flex items-center justify-center h-screen w-screen" 
+      style={{ backgroundImage: 'url(/bg.png)', backgroundSize: 'cover' }} // Set background image
+    >
       <div className="flex flex-col items-center space-y-20">
         {/* Skin Tone Selector */}
         <div className="space-y-6 flex flex-col items-center">
@@ -52,7 +55,7 @@ const SkinToneSelector = () => {
             {skinTones.map((tone) => (
               <div
                 key={tone.id}
-                className={`w-12 h-12 cursor-pointer border-2 ${
+                className={`w-12 h-12 cursor-pointer border-2 rounded-full ${ // Make border circular
                   selectedSkinTone === tone.id
                     ? "border-black"
                     : "border-transparent"
