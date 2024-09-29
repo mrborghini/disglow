@@ -10,7 +10,7 @@ Not every makeup product is made for every skintone, and that's okay! With our p
 
 ### Built With
 
-* [![React][React.js]][React-url]
+* ![React][React.js]
 
 
 [product-screenshot]: https://i.imgur.com/3HX5aRd.png
