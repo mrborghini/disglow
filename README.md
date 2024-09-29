@@ -1,4 +1,6 @@
-# disGLOW
+# disGLOW :sparkles:
+
+### TRY IT OUT: <a href="https://disglow.vercel.app/">back to top</a>
 
 Our team aims to raise awareness of inequities that persist in the beauty sector and highlight underrepresented groups with our makeup marketplace.
 
