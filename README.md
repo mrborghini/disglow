@@ -25,3 +25,41 @@ Not every makeup product is made for every skintone, and that's okay! With our p
 
 [product-screenshot]: https://i.imgur.com/w24QGTW.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+
+## Setup
+
+### Docker
+1. Install [Docker](https://www.docker.com/)
+
+2. Clone the repository
+```bash
+git clone https://github.com/laura-codess/disglow
+```
+
+3. Run
+```bash
+docker compose up
+```
+
+### For development
+1. Install [NodeJS and Node Package Manager](https://nodejs.org)
+
+2. clone the repository
+```bash
+git clone https://github.com/laura-codess/disglow
+```
+
+3. Install the dependencies with the following command
+```bash
+npm install
+```
+
+4. Start the development server with
+```bash
+npm run start
+```
+
+To build the release run the following command
+```bash
+npm run build
+```
