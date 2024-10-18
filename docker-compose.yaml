@@ -1,0 +1,9 @@
+services:
+  makeup-webapp:
+    build:
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    ports:
+      - 8080:8080
